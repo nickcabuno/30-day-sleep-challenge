@@ -1,6 +1,4 @@
 (function () {
-  const WD = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-
   function parseLocalDate(str) {
     const [y, m, d] = str.split('-').map(Number);
     return new Date(y, m - 1, d);
@@ -13,9 +11,6 @@
   function localDateStr(d) {
     const y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
     return `${y}-${m}-${day}`;
-  }
-  function fmtDate(d) {
-    return `${WD[d.getDay()]} ${d.getDate()}/${d.getMonth() + 1}`;
   }
 
   let profile, startDate, todayStr, checkinsByDay = {};
@@ -55,7 +50,7 @@
         cell.classList.add('missed');
       }
 
-      cell.innerHTML = `<div class="num">${day}</div><div class="date">${fmtDate(date)}</div>`;
+      cell.innerHTML = `<div class="num">${day}</div>`;
       cal.appendChild(cell);
     }
 
@@ -131,6 +126,7 @@
 
     startDate = parseLocalDate(window.SC_CONFIG.CHALLENGE_START_DATE);
     todayStr = localDateStr(new Date());
+    document.getElementById('page-title').textContent = startDate.toLocaleString('en-US', { month: 'long' });
 
     SC_NAV.render('challenge', profile);
 

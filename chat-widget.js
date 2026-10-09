@@ -35,7 +35,7 @@
       <div class="chat-drawer" id="chat-drawer">
         <div class="cw-draghandle" id="cw-draghandle"><span></span></div>
         <div class="cw-header" id="cw-header">
-          <div class="cw-header-left">
+          <div class="cw-header-left" id="cw-header-left">
             <span class="cw-icon">${ICON_CHAT}</span>
             <span class="cw-title">Chat</span>
             <span class="cw-unread" id="cw-unread"></span>
@@ -62,7 +62,7 @@
     mountMarkup();
 
     const drawer = document.getElementById('chat-drawer');
-    const header = document.getElementById('cw-header');
+    const headerLeft = document.getElementById('cw-header-left');
     const dragHandle = document.getElementById('cw-draghandle');
     const preview = document.getElementById('cw-preview');
     const closeBtn = document.getElementById('cw-close');
@@ -88,10 +88,15 @@
       setExpanded(!drawer.classList.contains('expanded'));
     }
 
-    // Tap-or-swipe on the handle/header/preview toggles the drawer.
+    // Tap-or-swipe on the handle/header-left/preview toggles the drawer.
+    // (The close button has its own click handler and deliberately sits
+    // outside header-left so the two never both fire for the same tap.)
     function attachSwipe(el) {
       let startY = null;
-      el.addEventListener('pointerdown', (e) => { startY = e.clientY; });
+      el.addEventListener('pointerdown', (e) => {
+        startY = e.clientY;
+        el.setPointerCapture(e.pointerId);
+      });
       el.addEventListener('pointerup', (e) => {
         if (startY === null) return;
         const deltaY = startY - e.clientY; // positive = swiped up
@@ -101,11 +106,12 @@
         if (deltaY > 10 && !expanded) setExpanded(true);
         else if (deltaY < -10 && expanded) setExpanded(false);
       });
+      el.addEventListener('pointercancel', () => { startY = null; });
     }
     attachSwipe(dragHandle);
-    attachSwipe(header);
+    attachSwipe(headerLeft);
     attachSwipe(preview);
-    closeBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleExpanded(); });
+    closeBtn.addEventListener('click', () => toggleExpanded());
 
     function renderBody(body) {
       const usernames = new Set(profiles.map((p) => p.username.toLowerCase()));
