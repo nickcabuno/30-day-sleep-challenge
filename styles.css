@@ -160,7 +160,9 @@ h1.title { font-size: 2rem; font-weight: 800; margin: 0 0 28px; }
 .day-cell.done {
   background: var(--accent);
   color: #fff;
+  cursor: pointer;
 }
+.day-cell.done:hover { background: var(--accent-dark); }
 .day-cell.today {
   background: var(--surface);
   color: var(--text);
@@ -225,6 +227,7 @@ h1.title { font-size: 2rem; font-weight: 800; margin: 0 0 28px; }
   cursor: pointer;
 }
 .scale-10 button.sel { background: var(--accent); color: #fff; border-color: var(--accent); }
+.scale-10.readonly button { pointer-events: none; cursor: default; }
 .scale-labels { display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--text-dim); margin-top: 4px; }
 .q-block textarea {
   width: 100%;

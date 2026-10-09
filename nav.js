@@ -36,7 +36,6 @@ window.SC_NAV = {
           ${linkHtml}
           <button class="theme-toggle" id="nav-theme-toggle" type="button" aria-label="Toggle dark mode"></button>
           <span class="username">@${profile ? profile.username : ''}</span>
-          <a href="#" id="nav-logout">Log out</a>
         </div>
       </nav>
     `;
@@ -48,10 +47,6 @@ window.SC_NAV = {
     themeBtn.addEventListener('click', () => {
       SC_THEME.toggle();
       paintThemeIcon();
-    });
-    document.getElementById('nav-logout').addEventListener('click', (e) => {
-      e.preventDefault();
-      SC.signOut();
     });
   }
 };

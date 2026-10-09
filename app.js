@@ -42,6 +42,7 @@
       const isDone = !!checkinsByDay[day];
       if (isDone) {
         cell.classList.add('done');
+        cell.addEventListener('click', () => openViewModal(day, checkinsByDay[day]));
         completed++;
       } else if (dateStr === todayStr) {
         cell.classList.add('today');
@@ -57,18 +58,23 @@
     document.getElementById('progress-line').textContent = `${completed} of ${LEN} days completed`;
   }
 
-  function buildScale(containerId, onSelect) {
+  // onSelect omitted → read-only: buttons just show the saved value, no interaction.
+  function buildScale(containerId, selectedValue, onSelect) {
     const el = document.getElementById(containerId);
     el.innerHTML = '';
+    el.classList.toggle('readonly', !onSelect);
     for (let i = 1; i <= 10; i++) {
       const b = document.createElement('button');
       b.type = 'button';
       b.textContent = i;
-      b.addEventListener('click', () => {
-        [...el.children].forEach((c) => c.classList.remove('sel'));
-        b.classList.add('sel');
-        onSelect(i);
-      });
+      if (i === selectedValue) b.classList.add('sel');
+      if (onSelect) {
+        b.addEventListener('click', () => {
+          [...el.children].forEach((c) => c.classList.remove('sel'));
+          b.classList.add('sel');
+          onSelect(i);
+        });
+      }
       el.appendChild(b);
     }
   }
@@ -78,12 +84,30 @@
     selectedRating = null;
     selectedHours = null;
     document.getElementById('modal-title').textContent = `Day ${day} check-in`;
+    document.getElementById('modal-sub').textContent = 'A few quick questions before you check off today.';
     document.getElementById('reasoning').value = '';
+    document.getElementById('reasoning').readOnly = false;
     document.getElementById('modal-error').classList.remove('show');
-    buildScale('scale-rating', (v) => (selectedRating = v));
-    buildScale('scale-hours', (v) => (selectedHours = v));
+    document.getElementById('modal-submit').style.display = '';
+    document.getElementById('modal-cancel').textContent = 'Cancel';
+    buildScale('scale-rating', null, (v) => (selectedRating = v));
+    buildScale('scale-hours', null, (v) => (selectedHours = v));
     document.getElementById('modal-backdrop').classList.add('show');
   }
+
+  function openViewModal(day, checkin) {
+    document.getElementById('modal-title').textContent = `Day ${day}`;
+    document.getElementById('modal-sub').textContent = `Logged on ${checkin.entry_date}`;
+    document.getElementById('reasoning').value = checkin.reasoning || '';
+    document.getElementById('reasoning').readOnly = true;
+    document.getElementById('modal-error').classList.remove('show');
+    document.getElementById('modal-submit').style.display = 'none';
+    document.getElementById('modal-cancel').textContent = 'Close';
+    buildScale('scale-rating', checkin.sleep_rating, null);
+    buildScale('scale-hours', checkin.hours_slept, null);
+    document.getElementById('modal-backdrop').classList.add('show');
+  }
+
   function closeModal() {
     document.getElementById('modal-backdrop').classList.remove('show');
   }
