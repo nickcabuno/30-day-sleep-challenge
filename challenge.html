@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>30 Day Sleep Challenge</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="chat-widget.css" />
+</head>
+<body>
+
+<div id="nav-root"></div>
+
+<div class="page">
+  <h1 class="title">30 Day Sleep Challenge</h1>
+  <div class="calendar" id="calendar"></div>
+  <p class="progress-line" id="progress-line"></p>
+</div>
+
+<!-- Check-in modal -->
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <button class="close-x" id="modal-close">&times;</button>
+    <h2 id="modal-title">Day check-in</h2>
+    <p class="sub">A few quick questions before you check off today.</p>
+
+    <div class="error-msg" id="modal-error"></div>
+
+    <div class="q-block">
+      <label>How would you rate your sleep last night?</label>
+      <div class="scale-10" id="scale-rating"></div>
+      <div class="scale-labels"><span>Poor</span><span>Great</span></div>
+    </div>
+
+    <div class="q-block">
+      <label>How many hours of sleep did you get?</label>
+      <div class="scale-10" id="scale-hours"></div>
+      <div class="scale-labels"><span>Fewer</span><span>More</span></div>
+    </div>
+
+    <div class="q-block">
+      <label>Reasoning for the time at which you slept?</label>
+      <textarea id="reasoning" placeholder="What kept you up, or got you to bed on time?"></textarea>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn secondary" id="modal-cancel" type="button">Cancel</button>
+      <button class="btn" id="modal-submit" type="button">Submit check-in</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script src="nav.js"></script>
+<script src="app.js"></script>
+<script src="chat-widget.js"></script>
+</body>
+</html>

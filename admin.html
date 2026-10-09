@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin · 30 Day Sleep Challenge</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="chat-widget.css" />
+</head>
+<body>
+
+<div id="nav-root"></div>
+
+<div class="page">
+  <h1 class="title">Admin</h1>
+
+  <div class="section-title">Roster</div>
+  <table class="admin-table" id="roster-table">
+    <thead>
+      <tr><th>Username</th><th>Role</th><th>Joined</th><th>Days completed</th></tr>
+    </thead>
+    <tbody id="roster-body"></tbody>
+  </table>
+  <p class="muted" style="margin-top:14px;">
+    To promote a user to admin, run this in the Supabase SQL Editor:<br />
+    <code>update profiles set is_admin = true where username = 'their_username';</code>
+  </p>
+
+  <div class="section-title">All check-ins</div>
+  <div id="entries-root"></div>
+</div>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script src="nav.js"></script>
+<script src="admin.js"></script>
+<script src="chat-widget.js"></script>
+</body>
+</html>
