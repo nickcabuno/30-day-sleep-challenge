@@ -70,8 +70,6 @@
     const menuEl = document.getElementById('cw-mention-menu');
     const unreadDot = document.getElementById('cw-unread');
 
-    SC_KEYBOARD_SAFE(drawer, 'var(--tabbar-h, 0px)');
-
     let profiles = [];
     let lastRenderedSender = null;
     let lastRenderedAt = 0;

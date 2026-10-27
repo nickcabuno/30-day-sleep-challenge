@@ -16,25 +16,6 @@ window.SC_THEME = {
   }
 };
 
-/* iOS Safari quirk: `position: fixed` tracks the *layout* viewport, which
- * doesn't shrink when the keyboard opens — only the *visual* viewport does.
- * That mismatch is what lets page content end up misaligned behind the
- * keyboard/toolbar. Track visualViewport directly and nudge the element's
- * `bottom` up by however much is currently covered, so it stays pinned to
- * what's actually on screen. */
-window.SC_KEYBOARD_SAFE = function (el, baseOffsetCss) {
-  if (!window.visualViewport) return;
-  const base = baseOffsetCss || '0px';
-  function sync() {
-    const vv = window.visualViewport;
-    const covered = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
-    el.style.bottom = covered > 0 ? `calc(${base} + ${covered}px)` : '';
-  }
-  window.visualViewport.addEventListener('resize', sync);
-  window.visualViewport.addEventListener('scroll', sync);
-  sync();
-};
-
 const SC_ICONS = {
   sun: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>',
   moonToggle: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>',
@@ -101,6 +82,5 @@ window.SC_SHELL = {
         ).join('')}
       </nav>
     `;
-    SC_KEYBOARD_SAFE(root.querySelector('.tab-bar'), '0px');
   }
 };

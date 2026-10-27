@@ -23,6 +23,14 @@
   z-index: 42;
 }
 .chat-drawer.expanded {
+  /* Claim the full bottom of the screen instead of leaving the tab bar
+   * visible underneath. With the keyboard open, two separate fixed-position
+   * elements (tab bar + drawer) both contending for that strip is what let
+   * page content flash through between them — one solid layer avoids that
+   * entirely, and the tab bar doesn't need to be reachable mid-conversation
+   * anyway. */
+  bottom: 0;
+  z-index: 46;
   transform: translateY(0);
 }
 
