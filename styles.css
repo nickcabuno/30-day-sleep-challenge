@@ -213,13 +213,18 @@ a:hover { text-decoration: underline; }
 /* ── Auth form ─────────────────────────────────────── */
 /* Fixed night-sky look regardless of the light/dark toggle — this is the
    sleep-themed welcome screen, not an in-app page. */
+/* Fallback so mobile browsers never reveal white below the gradient while
+   their toolbar is hiding/showing and resizing the real viewport. */
+html.auth-html { background: #1e1842; }
 body.auth-page {
   min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
   overflow-x: hidden;
   background:
     radial-gradient(ellipse 120% 50% at 50% -5%, #6e5bd4 0%, transparent 60%),
     linear-gradient(180deg, #1e1842 0%, #352a73 50%, #5c49ba 100%);
+  background-attachment: fixed;
 }
 .auth-stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .auth-stars span { position: absolute; color: #fff; opacity: 0.8; }
