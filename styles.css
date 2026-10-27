@@ -211,9 +211,31 @@ a:hover { text-decoration: underline; }
 .tab-item svg { display: block; }
 
 /* ── Auth form ─────────────────────────────────────── */
-.auth-wrap { max-width: 380px; margin: 60px auto; padding: 0 20px; }
-.auth-wrap h1 { font-size: 1.7rem; margin-bottom: 4px; }
-.auth-wrap p.sub { color: var(--text-dim); margin-top: 0; margin-bottom: 28px; }
+/* Fixed night-sky look regardless of the light/dark toggle — this is the
+   sleep-themed welcome screen, not an in-app page. */
+body.auth-page {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background:
+    radial-gradient(ellipse 120% 50% at 50% -5%, #6e5bd4 0%, transparent 60%),
+    linear-gradient(180deg, #1e1842 0%, #352a73 50%, #5c49ba 100%);
+}
+.auth-stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.auth-stars span { position: absolute; color: #fff; opacity: 0.8; }
+
+.auth-wrap { max-width: 380px; margin: 0 auto; padding: 70px 20px 40px; position: relative; z-index: 1; text-align: center; }
+.auth-moon { font-size: 2.1rem; margin-bottom: 10px; }
+.auth-wrap h1 {
+  font-family: 'Baloo 2', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 4px 24px rgba(108, 83, 220, 0.65);
+  margin: 0 0 8px;
+}
+.auth-wrap p.sub { color: #d9d4f7; margin-top: 0; margin-bottom: 28px; }
+.auth-wrap .field { text-align: left; }
 .field { margin-bottom: 14px; }
 .field label { display: block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 6px; }
 .field input, .field select {
