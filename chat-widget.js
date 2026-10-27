@@ -1,6 +1,6 @@
 /* Docked chat drawer, present on every authenticated page.
- * Starts collapsed (peeking the header + latest message) at the bottom
- * of the viewport; tap or swipe up to expand, swipe down / tap close to collapse.
+ * Starts fully collapsed (just the header peeking) at the bottom of the
+ * viewport; tap or swipe up to expand, swipe down / tap close to collapse.
  */
 (function () {
   const ICON_CHAT = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>';
@@ -42,7 +42,6 @@
           </div>
           <button class="cw-close" id="cw-close" aria-label="Toggle chat" type="button">${ICON_CHEVRON}</button>
         </div>
-        <div class="cw-preview" id="cw-preview">Say hello to the group.</div>
         <div class="cw-messages" id="cw-messages"></div>
         <div class="cw-inputrow">
           <div class="cw-mention-menu" id="cw-mention-menu"></div>
@@ -64,7 +63,6 @@
     const drawer = document.getElementById('chat-drawer');
     const headerLeft = document.getElementById('cw-header-left');
     const dragHandle = document.getElementById('cw-draghandle');
-    const preview = document.getElementById('cw-preview');
     const closeBtn = document.getElementById('cw-close');
     const messagesEl = document.getElementById('cw-messages');
     const input = document.getElementById('cw-input');
@@ -88,7 +86,7 @@
       setExpanded(!drawer.classList.contains('expanded'));
     }
 
-    // Tap-or-swipe on the handle/header-left/preview toggles the drawer.
+    // Tap-or-swipe on the handle/header-left toggles the drawer.
     // (The close button has its own click handler and deliberately sits
     // outside header-left so the two never both fire for the same tap.)
     function attachSwipe(el) {
@@ -110,7 +108,6 @@
     }
     attachSwipe(dragHandle);
     attachSwipe(headerLeft);
-    attachSwipe(preview);
     closeBtn.addEventListener('click', () => toggleExpanded());
 
     function renderBody(body) {
@@ -142,10 +139,6 @@
       if (scroll) messagesEl.scrollTop = messagesEl.scrollHeight;
     }
 
-    function setPreview(msg) {
-      preview.innerHTML = `<b>@${escapeHtml(msg.username)}</b> ${escapeHtml(msg.body).slice(0, 60)}`;
-    }
-
     async function loadMessages() {
       const { data, error } = await SC.client
         .from('chat_messages')
@@ -159,7 +152,6 @@
         messagesEl.innerHTML = '<div class="cw-empty">No messages yet — say hello.</div>';
       } else {
         data.forEach((m) => appendMessage(m, false));
-        setPreview(data[data.length - 1]);
       }
       messagesEl.scrollTop = messagesEl.scrollHeight;
     }
@@ -171,7 +163,6 @@
           const empty = messagesEl.querySelector('.cw-empty');
           if (empty) empty.remove();
           appendMessage(payload.new, true);
-          setPreview(payload.new);
           if (!drawer.classList.contains('expanded') && payload.new.user_id !== profile.id) {
             unreadDot.classList.add('show');
           }

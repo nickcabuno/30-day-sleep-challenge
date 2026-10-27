@@ -18,7 +18,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transform: translateY(calc(100% - 92px));
+  transform: translateY(calc(100% - 62px));
   transition: transform 0.3s cubic-bezier(.32,.72,0,1);
   z-index: 42;
 }
@@ -77,20 +77,6 @@
 }
 .cw-close:hover { background: var(--border); }
 .chat-drawer.expanded .cw-close { transform: rotate(180deg); }
-
-.cw-preview {
-  flex-shrink: 0;
-  padding: 0 16px 16px;
-  cursor: pointer;
-  touch-action: none;
-  color: var(--text-dim);
-  font-size: 0.85rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.cw-preview b { color: var(--text); font-weight: 600; }
-.chat-drawer.expanded .cw-preview { display: none; }
 
 .cw-messages {
   flex: 1;

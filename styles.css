@@ -66,7 +66,7 @@ a:hover { text-decoration: underline; }
 .page {
   max-width: 720px;
   margin: 0 auto;
-  padding: 0 20px calc(var(--tabbar-h) + 118px);
+  padding: 0 20px calc(var(--tabbar-h) + 88px);
 }
 
 /* ── App header band ──────────────────────────────────────── */
@@ -332,8 +332,9 @@ a:hover { text-decoration: underline; }
 .modal-actions { display: flex; gap: 10px; margin-top: 6px; }
 
 /* ── Sleep log form ────────────────────────────────── */
-.time-row { display: flex; gap: 12px; }
-.time-row .field { flex: 1; }
+.time-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.time-row .field { flex: 0 0 auto; }
+.time-row .field input { width: 150px; max-width: 100%; }
 .mood-row { display: flex; gap: 8px; }
 .mood-btn {
   flex: 1;

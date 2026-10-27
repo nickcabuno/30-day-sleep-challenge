@@ -8,6 +8,8 @@ window.SC_THEME = {
   set(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     try { localStorage.setItem('sc-theme', theme); } catch (e) {}
+    const meta = document.querySelector('meta[name=theme-color]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#4c3f94' : '#7c6fe6');
   },
   toggle() {
     SC_THEME.set(SC_THEME.get() === 'dark' ? 'light' : 'dark');
