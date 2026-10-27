@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Polls · Get Your Z's</title>
+<script>(function(){try{var t=localStorage.getItem('sc-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="chat-widget.css" />
+</head>
+<body>
+
+<div id="header-root"></div>
+
+<div class="page">
+  <div class="card" id="admin-create-card" style="display:none;">
+    <div class="card-title">Create a poll</div>
+    <div class="field" style="margin-top:12px;">
+      <label>Question</label>
+      <input type="text" id="new-poll-question" placeholder="What helps you unwind before bed?" />
+    </div>
+    <label class="muted" style="font-size:0.85rem;">Options</label>
+    <div id="new-poll-options" style="margin-top:8px;"></div>
+    <button class="btn secondary small" id="add-option-btn" type="button">+ Add option</button>
+    <button class="btn" id="create-poll-btn" type="button" style="margin-top:14px;">Publish poll</button>
+    <div class="error-msg" id="poll-create-error"></div>
+  </div>
+
+  <div class="card" id="poll-card">
+    <div class="card-title" id="poll-question">This Week's Poll</div>
+    <div id="poll-body" style="margin-top:14px;"></div>
+  </div>
+
+  <div class="card" id="reflection-card" style="display:none;">
+    <div class="card-title">This Week's Reflection</div>
+    <p class="muted" id="reflection-prompt" style="margin-top:4px;">What's been your biggest challenge balancing everything and sleep?</p>
+    <textarea id="reflection-input" class="textarea-field"></textarea>
+    <div class="btn-row">
+      <button class="btn secondary" id="save-reflection-btn" type="button">Save</button>
+      <a class="btn" href="community.html">Discuss in Community</a>
+    </div>
+  </div>
+</div>
+
+<div id="tabbar-root"></div>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script src="nav.js"></script>
+<script src="polls.js"></script>
+<script src="chat-widget.js"></script>
+</body>
+</html>

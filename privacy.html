@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy · Get Your Z's</title>
+<script>(function(){try{var t=localStorage.getItem('sc-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="chat-widget.css" />
+</head>
+<body>
+
+<div id="header-root"></div>
+
+<div class="page">
+  <div class="card">
+    <div class="card-title">Your Profile</div>
+    <div class="field" style="margin-top:14px;">
+      <label>Community nickname</label>
+      <input type="text" id="nickname-input" maxlength="30" />
+    </div>
+    <button class="btn" id="save-nickname-btn" type="button">Save</button>
+    <div class="info-msg" id="nickname-saved">Saved!</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Sharing Preferences</div>
+    <div class="toggle-row">
+      <div>
+        <div class="tr-label">Show my nickname and points on the leaderboard</div>
+      </div>
+      <label class="switch"><input type="checkbox" id="toggle-leaderboard" /><span class="track"></span></label>
+    </div>
+    <div class="toggle-row">
+      <div>
+        <div class="tr-label">Allow a badge announcement when I earn one</div>
+      </div>
+      <label class="switch"><input type="checkbox" id="toggle-badges" /><span class="track"></span></label>
+    </div>
+  </div>
+
+  <div class="card" style="background:var(--accent-soft); border:none;">
+    <p style="margin:0; font-size:0.85rem; color:var(--text-dim);">
+      🔒 Your bedtimes, wake-up times, sleep quality, and energy ratings are never displayed on the community board or leaderboard. Only content you explicitly post is shown.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Appearance</div>
+    <div class="toggle-row">
+      <div><div class="tr-label">Dark mode</div></div>
+      <label class="switch"><input type="checkbox" id="toggle-theme" /><span class="track"></span></label>
+    </div>
+  </div>
+</div>
+
+<div id="tabbar-root"></div>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script src="nav.js"></script>
+<script src="privacy.js"></script>
+<script src="chat-widget.js"></script>
+</body>
+</html>

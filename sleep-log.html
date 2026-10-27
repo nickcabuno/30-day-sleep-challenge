@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sleep Log · Get Your Z's</title>
+<script>(function(){try{var t=localStorage.getItem('sc-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="chat-widget.css" />
+</head>
+<body>
+
+<div id="header-root"></div>
+
+<div class="page">
+  <div class="error-msg" id="log-error"></div>
+
+  <div class="card" id="checkin-card">
+    <div class="card-title">Daily Sleep Check-In</div>
+    <p class="muted" style="margin-top:4px;">Your sleep data is private and only visible to you.</p>
+
+    <div class="time-row">
+      <div class="field">
+        <label>Bedtime</label>
+        <input type="time" id="in-bedtime" />
+      </div>
+      <div class="field">
+        <label>Wake-up time</label>
+        <input type="time" id="in-waketime" />
+      </div>
+    </div>
+
+    <div class="q-block">
+      <label>How did you sleep?</label>
+      <div class="mood-row" id="mood-row"></div>
+    </div>
+
+    <div class="q-block">
+      <label>Which strategies did you practice?</label>
+      <div class="strategy-list" id="strategy-list"></div>
+    </div>
+
+    <div class="field">
+      <label>Energy during daily activities</label>
+      <select id="in-energy">
+        <option value="">Select…</option>
+        <option value="low">Low energy</option>
+        <option value="moderate">Moderate energy</option>
+        <option value="high">High energy</option>
+      </select>
+    </div>
+
+    <button class="btn" id="save-btn" type="button" style="margin-top:6px;">Save Check-In</button>
+  </div>
+
+  <div class="card" id="done-card" style="display:none;">
+    <div class="card-title">Progress, not perfection! 🌿</div>
+    <p class="muted" style="margin-top:6px;">Every healthy choice counts — you've logged today already.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Your Recent Entries</div>
+    <div class="entry-list" id="entry-list" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<!-- Read-only entry detail -->
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <button class="close-x" id="modal-close">&times;</button>
+    <h2 id="modal-title">Day</h2>
+    <p class="sub" id="modal-sub"></p>
+    <div id="modal-body"></div>
+    <div class="modal-actions">
+      <button class="btn secondary" id="modal-cancel" type="button">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="tabbar-root"></div>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script src="nav.js"></script>
+<script src="sleep-log.js"></script>
+<script src="chat-widget.js"></script>
+</body>
+</html>

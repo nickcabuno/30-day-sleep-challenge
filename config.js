@@ -7,8 +7,8 @@ window.SC_CONFIG = {
   SUPABASE_URL: 'https://vygbihnmeyhhpgeblqpd.supabase.co',
   SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5Z2JpaG5tZXloaHBnZWJscXBkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1NTU1MDksImV4cCI6MjEwNzEzMTUwOX0.v1E0m13Em1LJYDNppe_0qjYpBkSZ73Q1pNWHgo85EnY',
 
-  // Day 1 of the challenge. Everything else is computed from this.
-  // Also drives the page heading ("October", etc.) — keep it the 1st of that month.
+  // Day 1 of the challenge. The calendar, today's clickable day, and
+  // progress % on Home are all computed from this.
   CHALLENGE_START_DATE: '2026-10-01',
   CHALLENGE_LENGTH_DAYS: 30
 };

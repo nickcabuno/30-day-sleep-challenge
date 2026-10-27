@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>30 Day Sleep Challenge</title>
+<title>Get Your Z's</title>
 <script>(function(){try{var t=localStorage.getItem('sc-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
 <div class="auth-wrap">
-  <h1>30 Day Sleep Challenge</h1>
+  <h1>Get Your Z's</h1>
   <p class="sub" id="auth-sub">Sign in to check in for today.</p>
 
   <div class="error-msg" id="auth-error"></div>
@@ -58,7 +58,7 @@
   // Already signed in? Skip straight to the challenge.
   const session = await SC.getSession();
   if (session) {
-    window.location.href = 'challenge.html';
+    window.location.href = 'home.html';
     return;
   }
 
@@ -112,7 +112,7 @@
         document.getElementById('si-email').value.trim(),
         document.getElementById('si-password').value
       );
-      window.location.href = 'challenge.html';
+      window.location.href = 'home.html';
     } catch (err) {
       showError(err.message || 'Could not sign in.');
       btn.disabled = false;
@@ -131,7 +131,7 @@
         document.getElementById('su-username').value
       );
       if (data.session) {
-        window.location.href = 'challenge.html';
+        window.location.href = 'home.html';
       } else {
         showInfo('Account created! Check your email to confirm, then sign in.');
         signupForm.reset();

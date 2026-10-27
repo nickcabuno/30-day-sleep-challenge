@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rewards · Get Your Z's</title>
+<script>(function(){try{var t=localStorage.getItem('sc-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="chat-widget.css" />
+</head>
+<body>
+
+<div id="header-root"></div>
+
+<div class="page">
+  <div class="card">
+    <div class="card-title">Your Achievements</div>
+    <p class="muted" style="margin-top:4px;">Earn badges for participation and consistency — not for sleeping more than other students.</p>
+    <div class="badge-grid" id="badge-grid" style="margin-top:14px;"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Friendly Leaderboard</div>
+    <div id="leaderboard" style="margin-top:10px;"></div>
+  </div>
+</div>
+
+<div id="tabbar-root"></div>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script src="nav.js"></script>
+<script src="rewards.js"></script>
+<script src="chat-widget.js"></script>
+</body>
+</html>

@@ -1,12 +1,29 @@
 (function () {
+  const MOOD_LABEL = { great: 'Great', good: 'Good', okay: 'Okay', poor: 'Poor' };
+  const ENERGY_LABEL = { low: 'Low', moderate: 'Moderate', high: 'High' };
+  const STRATEGY_LABEL = {
+    consistent_schedule: 'Consistent schedule',
+    screen_free_winddown: 'Screen-free wind-down',
+    relaxation_routine: 'Relaxation routine',
+    comfortable_environment: 'Comfortable environment',
+    academic_cutoff: 'Academic cutoff'
+  };
+
   function fmtDate(ts) {
     return new Date(ts).toLocaleDateString();
+  }
+  function fmtTime(t) {
+    if (!t) return '—';
+    const [h, m] = t.split(':').map(Number);
+    const period = h >= 12 ? 'PM' : 'AM';
+    const h12 = h % 12 === 0 ? 12 : h % 12;
+    return `${h12}:${String(m).padStart(2, '0')} ${period}`;
   }
   function escapeHtml(s) {
     return (s || '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   }
 
-  async function renderRoster(profiles, checkins) {
+  function renderRoster(profiles, checkins) {
     const countByUser = {};
     checkins.forEach((c) => (countByUser[c.user_id] = (countByUser[c.user_id] || 0) + 1));
 
@@ -37,21 +54,22 @@
     root.innerHTML = `
       <table class="admin-table">
         <thead>
-          <tr><th>User</th><th>Day</th><th>Date</th><th>Sleep rating</th><th>Hours</th><th>Reasoning</th></tr>
+          <tr><th>User</th><th>Day</th><th>Bedtime → Wake</th><th>Mood</th><th>Strategies</th><th>Energy</th></tr>
         </thead>
         <tbody>
           ${sorted
-            .map(
-              (c) => `
+            .map((c) => {
+              const strategies = (c.strategies || []).map((s) => STRATEGY_LABEL[s] || s).join(', ') || '—';
+              return `
             <tr>
               <td>@${escapeHtml(byUsername[c.user_id] || '?')}</td>
               <td>${c.day}</td>
-              <td>${c.entry_date}</td>
-              <td>${c.sleep_rating}/10</td>
-              <td>${c.hours_slept}/10</td>
-              <td>${escapeHtml(c.reasoning) || '<span class="muted">—</span>'}</td>
-            </tr>`
-            )
+              <td>${fmtTime(c.bedtime)} → ${fmtTime(c.wake_time)}</td>
+              <td>${MOOD_LABEL[c.mood] || c.mood}</td>
+              <td>${strategies}</td>
+              <td>${ENERGY_LABEL[c.energy] || c.energy}</td>
+            </tr>`;
+            })
             .join('')}
         </tbody>
       </table>
@@ -64,11 +82,12 @@
     const profile = auth.profile;
 
     if (!profile.is_admin) {
-      window.location.href = 'challenge.html';
+      window.location.href = 'home.html';
       return;
     }
 
-    SC_NAV.render('admin', profile);
+    SC_SHELL.renderHeader({ title: 'Admin', subtitle: 'Roster and check-in data — admins only.', profile });
+    SC_SHELL.renderTabs('admin');
 
     const [profiles, checkinsRes] = await Promise.all([
       SC.listProfiles(),

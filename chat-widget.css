@@ -6,10 +6,10 @@
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: var(--tabbar-h, 0px);
   max-width: 720px;
   margin: 0 auto;
-  height: min(78vh, 640px);
+  height: min(72vh, 600px);
   background: var(--surface);
   border: 1px solid var(--border);
   border-bottom: none;
@@ -20,7 +20,7 @@
   overflow: hidden;
   transform: translateY(calc(100% - 92px));
   transition: transform 0.3s cubic-bezier(.32,.72,0,1);
-  z-index: 40;
+  z-index: 42;
 }
 .chat-drawer.expanded {
   transform: translateY(0);
@@ -197,6 +197,3 @@
   color: var(--text);
 }
 .cw-mention-menu div:hover, .cw-mention-menu div.active { background: var(--panel); }
-
-/* Keep page content from hiding completely behind the docked bar */
-.page { padding-bottom: 110px; }
