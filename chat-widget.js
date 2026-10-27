@@ -77,6 +77,13 @@
 
     function setExpanded(expanded) {
       drawer.classList.toggle('expanded', expanded);
+      // Lock the page behind the drawer from scrolling. Without this, focusing
+      // the chat textarea can let iOS auto-scroll the underlying page (even
+      // though the drawer itself is fixed), which can park page content like
+      // the Home mission card right behind Safari's translucent toolbar and
+      // show through it while the keyboard is open.
+      document.documentElement.style.overflow = expanded ? 'hidden' : '';
+      document.body.style.overflow = expanded ? 'hidden' : '';
       if (expanded) {
         unreadDot.classList.remove('show');
         messagesEl.scrollTop = messagesEl.scrollHeight;
